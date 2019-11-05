@@ -20,6 +20,11 @@
                     </div>
                 </div>
                 <ul class="list-group">
+                        @if(Session::has('success'))
+                                            <div class="alert alert-success">
+                                             {{Session::get('success')}}
+                                            </div>
+                                            @endif
                         @forelse($products as $product)
                     <li class="list-group-item border-0 mb-3 ">
                         <div class="row d-flex justify-content-between align-items-center"> 
@@ -41,7 +46,7 @@
                                             <!-- The button for adding the product to the cart -->
                                             <button class="btn btn-primary">Añadir al carrito</button>
                                     </a>
-                                        {{-- {{ $proyecto->descripcion }} --}}
+                                        {{-- {{ $product->descripcion }} --}}
                                 </span>
                             </div>
                             @else
