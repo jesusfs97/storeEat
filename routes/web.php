@@ -56,13 +56,15 @@
     // Route::get('/Carrito_de_compras', 'carroController@cart')->name('carrito.compra');
     // Route::post('/Limpiar_carrito', 'carroController@clear')->name('carrito.vaciar');
     // Route::get('/marca/{url}', 'HomeController@brands')->name('marcas');
-    // Route::get('/categorias/{url}', 'HomeController@categories')->name('categorias');
-    
-Route::view('/', 'home')->name('home');
+	// Route::get('/categorias/{url}', 'HomeController@categories')->name('categorias');
+	
+
 Route::get('/', 'ProyectController@menu')->name('home');
 
 route::view('/contacto', 'contacto')->name('contacto');
 route::post('contacto', 'ContactoController@store');
+
+Route::middleware(['auth'])->group(function () {
 
 route::get('/Administrar' , 'ProyectController@index' )->name('Admin.index');
 
@@ -75,7 +77,7 @@ route::post('/Administrar/crear', 'ProyectController@store')->name('Admin.guarda
 
 route::get('/Administrar/{Proyect}', 'ProyectController@show')->name('Admin.ver');
 Route::delete('/Administrar/{proyect}', 'ProyectController@destroy') ->name('Admin.destruir');
-
+});
 
 route::view('/nosotros','nosotros')->name('nosotros');
 
@@ -95,7 +97,7 @@ Route::get('checkout', 'PaypalController@payWithpaypal')->name('checkout');
 # PayPal status callback
 Route::get('status', 'PaypalController@getPaymentStatus');
 # Generated routes for authentication
-Auth::routes();
+
 
 
 
@@ -165,3 +167,4 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit')
 		->middleware('permission:products.edit');
 });
+

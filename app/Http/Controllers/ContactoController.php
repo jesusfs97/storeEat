@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MensajeRecibido;
+
+
 class ContactoController extends Controller
 {
     public function store(){
 
         // esto es para hacer la validacion de los cmpos en el formulario 
-        request()->validate([  //"VALIDATE " como primer parametro recibe el nombre del campo y las reglas de validacion 
+        $mensaje = request()->validate([  //"VALIDATE " como primer parametro recibe el nombre del campo y las reglas de validacion 
             'Nombre' => 'required',
             'Correo' => 'required|email',
             'Asunto' => 'required',
@@ -23,6 +27,9 @@ class ContactoController extends Controller
             //estamos editando la regla required en el campo NOMBRE y mostrara el mensaje =>
         ]);
 
-        return back() ->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas.');
+        Mail::to('jesus.97fsol@gmail.com')->queue(new MensajeRecibido($mensaje));
+        // return new MensajeRecibido($mensaje);
+
+        return back()->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas.');
     }
 }
