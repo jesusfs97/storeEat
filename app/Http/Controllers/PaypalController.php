@@ -59,7 +59,7 @@ class PaypalController extends Controller
         foreach (Cart::content() as $item) {
             $items[] = (new Item())
                 ->setName($item->name)
-                ->setCurrency('MXN')
+                ->setCurrency('USD')
                 ->setQuantity($item->qty)
                 ->setPrice($item->price);
         }
@@ -78,7 +78,7 @@ class PaypalController extends Controller
         $createProfile = $webProfile->create($this->apiContext);
         # We get the total price of the cart
         $amount = new Amount();
-        $amount->setCurrency('MXN')
+        $amount->setCurrency('USD')
             ->setTotal(Cart::subtotal());
         $transaction = new Transaction();
         $transaction->setAmount($amount);

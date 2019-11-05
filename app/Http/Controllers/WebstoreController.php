@@ -15,9 +15,10 @@ class WebstoreController extends Controller
     }
     # Our function for adding a certain product to the cart
     public function addToCart(Product $product)
-    {
+    {   
         Cart::add($product->id, $product->name, 1, $product->price);
-        return redirect('/home');
+
+        return redirect('/home')->withSuccess("Anadido a $product->name a tu carrito");
     }
     # Our function for removing a certain product from the cart
     public function removeProductFromCart($productId)

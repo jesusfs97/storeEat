@@ -79,8 +79,9 @@
                                         </td>
                                         <td>{{ $cartItem->name }}</td>
                                         <td>{{ $cartItem->qty }}</td>
-                                        <td>{{ $cartItem->price }} $</td>
-                                        <td>{{ $cartItem->total }} $</td>
+                                        <td>{{ $cartItem->price }} USD</td>
+                                        <td>{{ number_format($cartItem->price, 2) }} USD</td>
+                                        <!--$cartItem->total fue usado pero dava precio con taxis/iva de donde se le agreo ese impuesto? no lo pude encontrar...0.0?-->
                                     </tr>
                                 @endforeach
                                 <tr>
@@ -89,7 +90,7 @@
                                     <td></td>
                                     <td></td>
                                     <!-- Total price of whole cart -->
-                                    <td class="uk-text-bold">Total: {{ number_format(Cart::subtotal(),2) }} $</td>
+                                    <td class="uk-text-bold">Total: {{ number_format(Cart::subtotal(), 2) }} USD</td>
                                 </tr>
                                 </tbody>
                             </table>
