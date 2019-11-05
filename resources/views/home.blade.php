@@ -20,31 +20,52 @@
                     </div>
                 </div>
                 <ul class="list-group">
-                        @forelse($Proyectos as $proyecto )
+                        @if(Session::has('success'))
+                                            <div class="alert alert-success">
+                                             {{Session::get('success')}}
+                                            </div>
+                                            @endif
+                        @forelse($products as $product)
                     <li class="list-group-item border-0 mb-3 ">
                         <div class="row d-flex justify-content-between align-items-center"> 
                             <div class="col-sm-4">
                                 <span class="text-secondary font-weight-bold">
-                                    {{ $proyecto->titulo }}
+                                    {{ $product->name }}
                                 </span>
                             </div>
                             <div class="col-sm-4">
                                 <span class="text-secondary font-weight-bold">
-                                    {{$proyecto ->precio}}
+                                    {{ number_format($product->price, 2) }}
                                 </span>
                             </div>
+                            @auth
+                                
                             <div class="col-sm-4">
                                 <span>
-                                    {{ $proyecto->descripcion }}
+                                    <a href="{{ route('add', [ $product->getRouteKey() ]) }}">
+                                            <!-- The button for adding the product to the cart -->
+                                            <button class="btn btn-primary">Añadir al carrito</button>
+                                    </a>
+                                        {{-- {{ $product->descripcion }} --}}
                                 </span>
                             </div>
+                            @else
+                            <div class="col-sm-4">
+                                <span>
+                                    Para comprar registrate
+                                </span>
+                            </div>
+                            @endauth
+
                         </div>
                     </li>
                                 
                     <hr />     
                     @empty     
                         <li class="list-group-item border-0 mb-3">Por el momento no tenemos Desayunos</li>                                
-                    @endforelse()                             
+                    @endforelse()             
+                    
+                    
                 </ul>
             </div>
         </div>

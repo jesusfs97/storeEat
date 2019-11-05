@@ -30,6 +30,10 @@ class ContactoController extends Controller
         Mail::to('jesus.97fsol@gmail.com')->queue(new MensajeRecibido($mensaje));
         // return new MensajeRecibido($mensaje);
 
+<<<<<<< HEAD
         return back() ->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas.');
+=======
+        return back()->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas.');
+>>>>>>> 6ded2aca2a82631ac3f0e1ed7c59ab3d26c129f8
     }
 }

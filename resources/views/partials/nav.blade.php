@@ -41,6 +41,69 @@
                         Cerrar sesion
                     </a>
                 </li>
+                <li class="nav-item dropdown">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#shoppingCartModal">
+                        Cart
+                    </button>
+                </li>
+
+                 <!-- Shopping cart modal -->
+                 <div class="modal fade" id="shoppingCartModal" tabindex="-1" role="dialog"
+                 aria-labelledby="shoppingCartModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="shoppingCartModalTitle">Shopping cart</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach(Cart::content() as $cartItem)
+                                    <tr>
+                                        <td>
+                                            <!-- Remove product button -->
+                                            <a href="{{ route('remove', [ $cartItem->rowId ]) }}">x</a>
+                                        </td>
+                                        <td>{{ $cartItem->name }}</td>
+                                        <td>{{ $cartItem->qty }}</td>
+                                        <td>{{ $cartItem->price }} USD</td>
+                                        <td>{{ number_format($cartItem->price, 2) }} USD</td>
+                                        <!--$cartItem->total fue usado pero dava precio con taxis/iva de donde se le agreo ese impuesto? no lo pude encontrar...0.0?-->
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <!-- Total price of whole cart -->
+                                    <td class="uk-text-bold">Total: {{ number_format(Cart::subtotal(), 2) }} USD</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- Clear shopping cart button -->
+                            <a href="{{ route('empty') }}" class="btn btn-danger">Vaciar</a>
+                            <!-- Proceed to checkout button -->
+                            <a href="{{ route('checkout') }}" class="btn btn-primary">Pagar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
                 @can('products.index')
                 <li class="nav-item">

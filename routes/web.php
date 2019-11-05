@@ -56,13 +56,15 @@
     // Route::get('/Carrito_de_compras', 'carroController@cart')->name('carrito.compra');
     // Route::post('/Limpiar_carrito', 'carroController@clear')->name('carrito.vaciar');
     // Route::get('/marca/{url}', 'HomeController@brands')->name('marcas');
-    // Route::get('/categorias/{url}', 'HomeController@categories')->name('categorias');
-    
-Route::view('/', 'home')->name('home');
+	// Route::get('/categorias/{url}', 'HomeController@categories')->name('categorias');
+	
+
 Route::get('/', 'ProyectController@menu')->name('home');
 
 route::view('/contacto', 'contacto')->name('contacto');
 route::post('contacto', 'ContactoController@store');
+
+Route::middleware(['auth'])->group(function () {
 
 route::get('/Administrar' , 'ProyectController@index' )->name('Admin.index');
 
@@ -79,7 +81,7 @@ Route::delete('/Administrar/{proyect}', 'ProyectController@destroy') ->name('Adm
 
 route::view('/nosotros','nosotros')->name('nosotros');
 
-
+});
 
 
     Auth::routes();
@@ -113,6 +115,59 @@ route::view('/nosotros','nosotros')->name('nosotros');
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
         ->middleware('permission:roles.edit');
 		
+});
+
+route::view('/nosotros','nosotros')->name('nosotros');
+
+# Default route when accessing the website
+Route::get('/', 'WebstoreController@index');
+# The home route, which is used in the authentication scaffolding
+# We update the closure argument to the index function of our controller
+Route::get('/home', 'WebstoreController@index')->name('home');
+# Adding a product to the shopping cart
+Route::get('/add/{product}', 'WebstoreController@addToCart')->name('add');
+# Removing an product from the shopping cart
+Route::get('/remove/{productId}', 'WebstoreController@removeProductFromCart')->name('remove');
+# Clearing all products from the shopping cart
+Route::get('/empty', 'WebstoreController@destroyCart')->name('empty');
+# PayPal checkout
+Route::get('checkout', 'PaypalController@payWithpaypal')->name('checkout');
+# PayPal status callback
+Route::get('status', 'PaypalController@getPaymentStatus');
+# Generated routes for authentication
+
+
+
+
+
+
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware(['auth'])->group(function () {
+	//Roles
+	Route::post('roles/store', 'RoleController@store')->name('roles.store')
+		->middleware('permission:roles.create');
+
+	Route::get('roles', 'RoleController@index')->name('roles.index')
+		->middleware('permission:roles.index');
+
+	Route::get('roles/create', 'RoleController@create')->name('roles.create')
+		->middleware('permission:roles.create');
+
+	Route::put('roles/{role}', 'RoleController@update')->name('roles.update')
+		->middleware('permission:roles.edit');
+
+	Route::get('roles/{role}', 'RoleController@show')->name('roles.show')
+		->middleware('permission:roles.show');
+
+	Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy')
+		->middleware('permission:roles.destroy');
+
+	Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
+		->middleware('permission:roles.edit');
 	//Users
 	Route::get('users', 'UserController@index')->name('users.index')
 		->middleware('permission:users.index');
@@ -150,3 +205,4 @@ route::view('/nosotros','nosotros')->name('nosotros');
 	Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit')
 		->middleware('permission:products.edit');
 });
+

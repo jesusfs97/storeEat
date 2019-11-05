@@ -69,7 +69,7 @@ class PermissionsTableSeeder extends Seeder
             'description'   => 'Podría eliminar cualquier rol del sistema',      
         ]);
 
-        //Productos
+        //Roles
         Permission::create([
             'name'          => 'Navegar productos',
             'slug'          => 'products.index',

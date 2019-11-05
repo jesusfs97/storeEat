@@ -12,11 +12,11 @@
     </div>
 
     <ul class="list-group">
-        @forelse($Proyectos as $proyecto )
+        @forelse($products as $proyecto )
             <li class="list-group-item border-0 mb-3 ">
                 <a class="d-flex justify-content-between align-items-center" href=" {{ route('Admin.ver' , $proyecto) }} "> 
                     <span class="text-secondary font-weight-bold">
-                        {{ $proyecto->titulo }}
+                        {{ $proyecto->name }}
                     </span>
 
                     <span>

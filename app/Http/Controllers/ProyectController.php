@@ -21,14 +21,14 @@ class ProyectController extends Controller
     public function menu()
     {
         return view('home',[
-            'Proyectos' => Project::get()
+            'products' => Project::get()
         ]);
     }
 
     public function index()
     {
         return view('Comidas.index' , [
-            'Proyectos' => Project::get()
+            'products' => Project::get()
         ]);
     }
 
@@ -57,14 +57,15 @@ class ProyectController extends Controller
         ]); #todo esto lo podriamos guardar en la variable DATOS
         
         //recibimos los datos y los asignamos a variables
-        $titulo = $request->get('titulo');
+        $nombre = $request->get('titulo');
         $descripcion = $request->get('descripcion');
-        $precio = $request->get('precio');
+        $price = $request->get('precio');
+
 
         Project::create([ # <-- este es el modelo project que creamos
-            'titulo'=> $titulo,
+            'name'=> $nombre,
             'descripcion'=> $descripcion,
-            'precio'=> $precio,
+            'price'=> $price,
         ]);
 
         /* OTRO METODO seria 
