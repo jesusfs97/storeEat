@@ -1,11 +1,11 @@
 @extends('layout')
 
-@section('titulo', $proyect->titulo)
+@section('titulo', $proyect->name)
 
 @section('contenido')
 <div class="container">
     <div class="bg-white p-5 shadow rounded">
-        <h1>{{ $proyect->titulo }}</h1> 
+        <h1>{{ $proyect->name }}</h1> 
         <p>{{ $proyect->descripcion }}</p>
         <small class="text-black-50">{{ $proyect->created_at->diffForHumans()}}</small>
         <hr/>

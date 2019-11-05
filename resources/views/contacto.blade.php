@@ -10,9 +10,18 @@
 
             
             @if(session('status'))
-            {{ session('status')}}
-            @else
             
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="alert alert-success">
+                            {{ session('status')}}
+                        </div>
+                    </div>
+                </div>
+            </div>       
+            @else
+           
             
             <form class="bg-white shadow rounded py-3 px-5 "  method="POST" action=" {{ route('contacto') }}">
                     

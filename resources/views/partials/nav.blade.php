@@ -64,9 +64,9 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
                                     <th>Total</th>
                                 </tr>
                                 </thead>
