@@ -25,6 +25,7 @@
                             <tr>
                                 <th width="10px">ID</th>
                                 <th>Nombre</th>
+                                <th width="10px">Precio</th>
                                 <th colspan="3">&nbsp;</th>
                             </tr>
                         </thead>
@@ -33,6 +34,7 @@
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
+                                <td>{{ $product->price }}</td>
                                 <td width="10px">
                                 @can('products.show')
                                 <a href="{{ route('products.show', $product->id) }}"

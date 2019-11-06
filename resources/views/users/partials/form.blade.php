@@ -1,5 +1,5 @@
 <div class="form-group">
-	{{ Form::label('name', 'Nombre de la etiqueta') }}
+	{{ Form::label('name', 'Nombre') }}
 	{{ Form::text('name', null, ['class' => 'form-control']) }}
 </div>
 <hr>
@@ -11,7 +11,7 @@
 	        <label>
 	        {{ Form::checkbox('roles[]', $role->id, null) }}
 	        {{ $role->name }}
-	        <em>({{ $role->description ?: 'Sin descripción' }})</em>
+	        <em>({{ $role->description ?: 'N/A' }})</em>
 	        </label>
 	    </li>
 	    @endforeach

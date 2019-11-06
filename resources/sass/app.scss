@@ -6,3 +6,24 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+.h-screen{
+    height: 100vh;
+}
+
+.bg-O{
+    background: rgba(236, 172, 53, 0.65) ;
+}
+
+body{
+    background-image: url(../../public/img/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 0px;
+}
+.btnM{
+
+    display: flex;
+    display: inline;
+}

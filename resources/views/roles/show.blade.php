@@ -8,7 +8,7 @@
                 <div class="panel-heading">Role</div>
                 <div class="panel-body">
                     <p><strong>Nombre</strong>{{ $role->name }}</p>
-                    <p><strong>Slug</strong>{{ $role->name }}</p>
+                    <p><strong>Slug</strong>{{ $role->slug }}</p>
                     <p><strong>Descripción</strong>{{ $role->description }}</p>
                 </div>
             </div>
