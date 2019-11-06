@@ -10,11 +10,6 @@
 
             
             @if(session('status'))
-<<<<<<< HEAD
-            {{ session('status')}}
-            @else
-            
-=======
             
             <div class="container">
                 <div class="row">
@@ -27,7 +22,6 @@
             </div>       
             @else
            
->>>>>>> 6ded2aca2a82631ac3f0e1ed7c59ab3d26c129f8
             
             <form class="bg-white shadow rounded py-3 px-5 "  method="POST" action=" {{ route('contacto') }}">
                     

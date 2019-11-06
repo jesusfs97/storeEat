@@ -8,6 +8,6 @@ use phpDocumentor\Reflection\DocBlock\Description;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'description',
+        'name', 'description', 'price'
     ];
 }

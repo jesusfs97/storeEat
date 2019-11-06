@@ -31,10 +31,6 @@
                 
                 
                 @auth
-                
-                <li class="nav-item" >
-                    <a class="nav-link {{ modoActivo( 'Admin*' ) }}" href="{{ route('Admin.index')}}">Administrar</a>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

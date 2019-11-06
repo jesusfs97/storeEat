@@ -64,25 +64,7 @@ Route::get('/', 'ProyectController@menu')->name('home');
 route::view('/contacto', 'contacto')->name('contacto');
 route::post('contacto', 'ContactoController@store');
 
-Route::middleware(['auth'])->group(function () {
-
-route::get('/Administrar' , 'ProyectController@index' )->name('Admin.index');
-
-route::get('/Administrar/crear', 'ProyectController@create')->name('Admin.crear');
-
-route::get('/Administrar/{proyect}/editar', 'ProyectController@edit')->name('Admin.editar');
-route::patch('/Administrar/{proyect}', 'ProyectController@update')->name('Admin.actualizar');
-
-route::post('/Administrar/crear', 'ProyectController@store')->name('Admin.guardar');
-
-route::get('/Administrar/{Proyect}', 'ProyectController@show')->name('Admin.ver');
-Route::delete('/Administrar/{proyect}', 'ProyectController@destroy') ->name('Admin.destruir');
-
-
 route::view('/nosotros','nosotros')->name('nosotros');
-
-});
-
 
     Auth::routes();
 
