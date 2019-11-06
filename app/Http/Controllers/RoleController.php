@@ -8,6 +8,19 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:roles.create')->only(['create', 'store']);
+
+	    $this->middleware('permission:roles.index')->only('index');
+         
+        $this->middleware('permission:roles.edit')->only(['edit', 'update']);
+
+	    $this->middleware('permission:roles.show')->only('show');
+
+	    $this->middleware('permission:roles.destroy')->only('destroy');
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +40,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        
-        return view('roles.create');
+        $permissions = Permission::get();
+
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -40,7 +54,11 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $role = Role::create($request->all());
-        return redirect()->route('roless.edit' , $role->id)
+
+        //Actualizar permisos
+        $role->permissions()->sync($request->get('permissions'));
+
+        return redirect()->route('roles.index' , $role->id)
         ->with('info','Role guardado con éxito');
         
         
@@ -66,9 +84,9 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $roles = Role::get();
+        $permissions = Permission::get();
         
-        return view('roles.edit', compact('role', 'roles'));
+        return view('roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -80,14 +98,14 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //Actualizar usuario
+        //Actualizar role
         $role->update($request->all());
 
-        //Actualizar roles
-        $role->roles()->sync($request->get('roles'));
+        //Actualizar permisos
+        $role->permissions()->sync($request->get('permissions'));
 
-        return redirect()->route('roles.edit' , $role->id)
-            ->with('info','Usuario actualizado con éxito');
+        return redirect()->route('roles.index' , $role->id)
+            ->with('info','Role actualizado con éxito');
     }
 
     /**

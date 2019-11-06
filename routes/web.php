@@ -64,19 +64,39 @@ Route::get('/', 'ProyectController@menu')->name('home');
 route::view('/contacto', 'contacto')->name('contacto');
 route::post('contacto', 'ContactoController@store');
 
-Route::middleware(['auth'])->group(function () {
+route::view('/nosotros','nosotros')->name('nosotros');
 
-route::get('/Administrar' , 'ProyectController@index' )->name('Admin.index');
+    Auth::routes();
 
-route::get('/Administrar/crear', 'ProyectController@create')->name('Admin.crear');
+   // Route::get('/home', 'HomeController@index')->name('home');
 
-route::get('/Administrar/{proyect}/editar', 'ProyectController@edit')->name('Admin.editar');
-route::patch('/Administrar/{proyect}', 'ProyectController@update')->name('Admin.actualizar');
+    //Routes
 
-route::post('/Administrar/crear', 'ProyectController@store')->name('Admin.guardar');
+    Route::middleware(['auth'])->group(function () {
 
-route::get('/Administrar/{Proyect}', 'ProyectController@show')->name('Admin.ver');
-Route::delete('/Administrar/{proyect}', 'ProyectController@destroy') ->name('Admin.destruir');
+    //Roles
+
+	Route::post('roles/store', 'RoleController@store')->name('roles.store')
+        ->middleware('permission:roles.create');
+
+    Route::get('roles', 'RoleController@index')->name('roles.index')
+        ->middleware('permission:roles.index');
+
+    Route::get('roles/create', 'RoleController@create')->name('roles.create')
+        ->middleware('permission:roles.create');
+
+    Route::put('roles/{role}', 'RoleController@update')->name('roles.update')
+        ->middleware('permission:roles.edit');
+
+    Route::get('roles/{role}', 'RoleController@show')->name('roles.show')
+        ->middleware('permission:roles.show');
+
+    Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy')
+        ->middleware('permission:roles.destroy');
+
+    Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
+        ->middleware('permission:roles.edit');
+		
 });
 
 route::view('/nosotros','nosotros')->name('nosotros');

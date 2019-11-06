@@ -15,7 +15,7 @@ class ContactoController extends Controller
             'Nombre' => 'required',
             'Correo' => 'required|email',
             'Asunto' => 'required',
-            'Contenido'=> 'required|min:10'
+            'Contenido'=> 'required|min:3'
         ],
 
         [   

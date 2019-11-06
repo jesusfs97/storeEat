@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = Product::create($request->all());
-        return redirect()->route('products.edit' , $product->id)
+        return redirect()->route('products.index' , $product->id)
         ->with('info','Producto guardado con éxito');
         
         
@@ -78,7 +78,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
-        return redirect()->route('products.edit' , $product->id)
+        return redirect()->route('products.index' , $product->id)
             ->with('info','Producto actualizado con éxito');
     }
 
