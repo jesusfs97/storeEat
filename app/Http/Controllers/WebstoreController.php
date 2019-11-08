@@ -17,14 +17,21 @@ class WebstoreController extends Controller
     public function addToCart(Product $product)
     {   
         Cart::add($product->id, $product->name, 1, $product->price);
-
+       
         return redirect('/home')->withSuccess("Anadido a $product->name a tu carrito");
     }
     # Our function for removing a certain product from the cart
     public function removeProductFromCart($productId)
-    {
-        Cart::remove($productId);
-        return redirect('/home');
+    {   
+         $existe = Cart::content()->search(function ($cartItem, $productId)  {
+             return $cartItem->rowId === $productId;
+        });
+        if($existe) {
+            Cart::remove($productId);
+            // return redirect('/home');
+        } 
+        return view('vacio');
+        
     }
     # Our function for clearing all items from our cart
     public function destroyCart()
