@@ -1,132 +1,46 @@
-<?php
+<?php	
+# Ruta defaul cuando ingresando al sitio
+Route::get('/', 'WebstoreController@index');
+# Hacemos update al argumento de closure a funcion index de nuestro controlador
+Route::get('/home', 'WebstoreController@index')->name('home');
 
-/*
-|--------------------------------------------------------------------------
-| RUTAS WEB
-|--------------------------------------------------------------------------
-|
-| Aquí es donde puede registrar rutas web para su aplicación.
-| Estas rutas son cargadas por el RouteServiceProvider dentro de un grupo que
-| contiene el grupo de middleware "web". ¡Ahora crea algo genial!
-|  TODAS LAS RUTAS QUE RETORNAS DEBEN ESTAR EN LA CARPETA "VIEWS"
-
-    Si queremos definir una ruta que responda cuando queramos acceder a la raiz del sitio web
-                             
-        Route::get( ' / ' , function(){  -> esto es una funcion anonima <CLOSURE>
-    definimos la URL ^
-            
-            return view(retoramos una vista) ;
-        })
-        
-        
-        
-        
-        Route::get('/', function () {
-            return view('welcome');
-        });
-        
-        route::get('bienvenido', function(){
-            return "hola bienvenido";
-        });
-        
-        // Esto es una funcion con parametro obligatorio
-        route::get('saludo/{nombre}', function($nombre){
-            return 'saludos'. $nombre; #si se intenta meter a la ruta mandara un error
-        });
-        
-        
-        
-        //esto es una ruta con parametros y son opcinales con el signo ? para que la ruta por si sola no muestre un error
-        route::get('fotos/{numero?}', function($numero =" sin numero"){ // este igual va a ser remplazada por ?
-            return "estas en la galeria de fotos: " . $numero;
-        }) ->where('numero','[0-9]+');
-        
-        route::get('contactame',function(){
-            return view('vista');
-        })->name('vist');
-        // esto es para darle nombre a la ruta y asi se mostrara en la url
-        
-        route::get('contactos',function(){
-            return 'contacto';
-        });
-        
-        Route::resource('usuario', 'UserController'); 
-    */
-    // Route::post('/añadir-carrito', 'carroController@add')->name('añadir');
-    // Route::get('/Carrito_de_compras', 'carroController@cart')->name('carrito.compra');
-    // Route::post('/Limpiar_carrito', 'carroController@clear')->name('carrito.vaciar');
-    // Route::get('/marca/{url}', 'HomeController@brands')->name('marcas');
-	// Route::get('/categorias/{url}', 'HomeController@categories')->name('categorias');
-	
-
-Route::get('/', 'ProyectController@menu')->name('home');
-
+//Rutas sin Login
 route::view('/contacto', 'contacto')->name('contacto');
 route::post('contacto', 'ContactoController@store');
-
 route::view('/nosotros','nosotros')->name('nosotros');
 
-    Auth::routes();
-
-   // Route::get('/home', 'HomeController@index')->name('home');
-
-    //Routes
-
-    Route::middleware(['auth'])->group(function () {
-
-    //Roles
-
-	Route::post('roles/store', 'RoleController@store')->name('roles.store')
-        ->middleware('permission:roles.create');
-
-    Route::get('roles', 'RoleController@index')->name('roles.index')
-        ->middleware('permission:roles.index');
-
-    Route::get('roles/create', 'RoleController@create')->name('roles.create')
-        ->middleware('permission:roles.create');
-
-    Route::put('roles/{role}', 'RoleController@update')->name('roles.update')
-        ->middleware('permission:roles.edit');
-
-    Route::get('roles/{role}', 'RoleController@show')->name('roles.show')
-        ->middleware('permission:roles.show');
-
-    Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy')
-        ->middleware('permission:roles.destroy');
-
-    Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
-        ->middleware('permission:roles.edit');
-		
-});
-
-route::view('/nosotros','nosotros')->name('nosotros');
-
-# Default route when accessing the website
-Route::get('/', 'WebstoreController@index');
-# The home route, which is used in the authentication scaffolding
-# We update the closure argument to the index function of our controller
-Route::get('/home', 'WebstoreController@index')->name('home');
-# Adding a product to the shopping cart
-Route::get('/add/{product}', 'WebstoreController@addToCart')->name('add');
-# Removing an product from the shopping cart
-Route::get('/remove/{productId}', 'WebstoreController@removeProductFromCart')->name('remove');
-# Clearing all products from the shopping cart
-Route::get('/empty', 'WebstoreController@destroyCart')->name('empty');
-# PayPal checkout
-Route::get('checkout', 'PaypalController@payWithpaypal')->name('checkout');
-# PayPal status callback
-Route::get('status', 'PaypalController@getPaymentStatus');
-# Generated routes for authentication
 
 
+//Routes
+
+    // Route::middleware(['auth'])->group(function () {
+
+    //Roles Duplicate?? si es duplicado favor de borrarlo
+
+//     Route::post('roles/store', 'RoleController@store')->name('roles.store')
+//         ->middleware('permission:roles.create');
+
+//     Route::get('roles', 'RoleController@index')->name('roles.index')
+//         ->middleware('permission:roles.index');
+
+//     Route::get('roles/create', 'RoleController@create')->name('roles.create')
+//         ->middleware('permission:roles.create');
+
+//     Route::put('roles/{role}', 'RoleController@update')->name('roles.update')
+//         ->middleware('permission:roles.edit');
+
+//     Route::get('roles/{role}', 'RoleController@show')->name('roles.show')
+//         ->middleware('permission:roles.show');
+
+//     Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy')
+//         ->middleware('permission:roles.destroy');
+
+//     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
+//         ->middleware('permission:roles.edit');
+        
+// });
 
 
-
-
-
-Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function () {
 	//Roles
@@ -186,5 +100,17 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit')
 		->middleware('permission:products.edit');
+        # Agregando producto al carro
+    Route::get('/add/{product}', 'WebstoreController@addToCart')->name('add');
+    # Remover producto del carro
+    Route::get('/remove/{productId}', 'WebstoreController@removeProductFromCart')->name('remove');
+    # Quitar toda la mercancia del carrito vaciarlo
+    Route::get('/empty', 'WebstoreController@destroyCart')->name('empty');
+    # PayPal checkout
+    Route::get('checkout', 'PaypalController@payWithpaypal')->name('checkout');
+    # PayPal status callback
+    Route::get('status', 'PaypalController@getPaymentStatus');
+
 });
 
+Auth::routes();
